@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Api, Resource
 
 app = Flask(__name__)
@@ -32,6 +32,21 @@ class PersonResource(Resource):
       if person:
         return person
       return ({'message': 'person not found'})
+    
+    def put(self, person_id):
+      person = find_person(person_id)
+      if person:
+        person['name']= request.json['name']
+        person['Age']=request.json['Age']
+        return person
+      return ({'message': 'person not found'})
+    
+
+    def delete(self, person_id):
+      global data
+      data = [person for person in data if person['id'] != person_id] 
+      
+      return ({'message': 'person successfully deleted'})
 
 
 
