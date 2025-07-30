@@ -1,1 +1,16 @@
-# API_create
+from flask import Flask
+from flask_restful import Api, Resource
+app = Flask(__name__)
+api = Api(app)
+
+data = [{'id': 1, 'name': 'user1', 'age':49}]
+
+class PeopleResource(Resource):
+  def get(self):
+    return data
+  
+api.add_resource(PeopleResource, '/people')
+
+if __name__ == '__main__':
+
+    app.run(debug = True)
